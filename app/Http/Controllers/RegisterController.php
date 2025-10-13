@@ -14,12 +14,13 @@ class RegisterController extends Controller
     public function register(Request $request){
 
         $validated = $request->validate([
-            'email' => 'required|string|email|max:255|unique:students,email',
+            'email' => 'required|string|email|max:255|unique:users,email',
             'password' => 'required|string|min:8|confirmed',
             'first_name' => 'required|string|max:255',
             'middle_name' => 'nullable|string|max:255',
             'last_name' => 'required|string|max:255',
             'phone_number' => ['required', 'regex:/^(97|98)[0-9]{8}$/'],
+            'role' => 'required|string',
         ]);
         // Generate OTP
         $otp = Str::random(6);
@@ -40,22 +41,24 @@ class RegisterController extends Controller
             'email' => 'required|email',
             'otp' => 'required|string|size:6',
         ]);
-        $user = User::where('email', $request->email)->get();
+        $user = User::where('email', $request->email)->first();
         //$user = User::where('email', $request->email)->first();
         if (!$user) {
             return response()->json(['message' => 'User not found']);
         }
-        if ($user[1]->otp !== $request->otp) {
+        if ($user->otp !== $request->otp) {
             return response()->json(['message' => 'Invalid OTP']);
         }
-        $user[1]->otp = null;
-        $user[1]->email_verified_at = now();
-        $user[1]->save();
+        // $user[1]->otp = null;
+        // $user[1]->email_verified_at = now();
+        // $user[1]->save();
+        // return response()->json(['message' => 'OTP verified successfully']);
+
+        $user->otp = null;
+        $user->email_verified_at = now();
+        $user->save();
         return response()->json(['message' => 'OTP verified successfully']);
 
-        // $user->otp = null;
-        // $user->email_verified_at = now();
-        // $user->save();
-        // return response()->json(['message' => 'OTP verified successfully']);
+
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\SubjectController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\PersonalController;
 use App\Http\Controllers\RegisterExam;
@@ -20,9 +21,10 @@ Route::post('/verify-otp', [RegisterController::class, 'verifyOtp']);
 Route::post('/login',[LoginController::class,'login']);
 //Route::get('/logout',[LogoutController::class,'logout']);
 
+Route::post('/uploads', [ImageController::class, 'upload']);
 Route::post('/logout', [LogoutController::class, 'logout'])->middleware('auth:api');
 //Middleware Only logged in user can perforn task
-Route::middleware('auth:api')->group(function(){
+Route::middleware(['auth:api', 'role:user'])->group(function(){
     Route::post('/students',[PersonalController::class,'personalDetails']);
     Route::post('/contact',[PersonalController::class,'contactDetail']);
     Route::post('/educations',[PersonalController::class,'education']);
@@ -48,3 +50,4 @@ Route::get('/manageurl',[PersonalController::class,'manageurl']);
 Route::post('/admin/subject',[SubjectController::class,'addSubjects']);
 
 Route::get('/sees/{semester}',[RegisterExam::class,'seesubjects']);
+
