@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AdminRegistration;
 use App\Http\Controllers\Admin\SubjectController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\LogoutController;
@@ -40,6 +42,10 @@ Route::middleware(['auth:api', 'role:user'])->group(function(){
     Route::post('/registerexam',[RegisterExam::class,'registerexam']);
 
 });
+//Admin login and registration using passport for authentication.....!
+    Route::post('/admin/register',[AdminRegistration::class,'adminRegistration']);
+    Route::post('/admin/login',[AdminController::class,'adminlogin']);
+    Route::middleware(['auth:api', 'role:admin'])->group(function(){});
 
 //Resource class
 Route::get('/url/{id}',[PersonalController::class,'url']);
