@@ -35,10 +35,7 @@ class Student extends Model
     }
 
     public function getStudentPhotoUrlAttribute(){
-        if($this->student_photo){
-            return asset('storage/' . $this->student_photo);
-        }
-        return null;
+        return $this->student_photo ? asset('storage/' . $this->student_photo) : null;
     }
     public function getStudentSignatureUrlAttribute(){
         if($this->student_signature){

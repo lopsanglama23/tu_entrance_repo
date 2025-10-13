@@ -32,12 +32,12 @@ class PersonalController extends BaseController
             $validated['student_signature'] = $this->storeFile('students/signatures',$request->file('student_signature'));
             // dd($validated['student_signature']);
         }
-        $exists = User::where('id', Auth::id())->exists();
-        if ($exists) {
-            return response()->json([
-                'message' => 'You have already submitted the form.'
-            ], 400);
-        }
+        // $exists = User::where('id', Auth::id())->exists();
+        // if ($exists) {
+        //     return response()->json([
+        //         'message' => 'You have already submitted the form.'
+        //     ], 400);
+        // }
         $validated['user_id'] = Auth::id();
         $students = Student::create($validated);
         return $this->sendSuccessMessage('The Student Data is Added Succesfully',$students);
