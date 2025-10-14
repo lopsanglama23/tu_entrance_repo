@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AdminRegistration;
 use App\Http\Controllers\Admin\SubjectController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\PersonalController;
 use App\Http\Controllers\RegisterExam;
 use GuzzleHttp\Middleware;
@@ -18,12 +19,16 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:api');
 //registration process with token generation
 Route::post('/register', [RegisterController::class, 'register']);
-
 Route::post('/verify-otp', [RegisterController::class, 'verifyOtp']);
-Route::post('/login',LoginController::class);
+Route::post('/login', [LoginController::class, 'login']);
+// Route::post('/login',LoginController::class);
+//password resetLink
+// Route::post('/password/sentlink',[PasswordResetController::class,'sentLink'])->name('password.reset');
+Route::post('/password/sentlink',[PasswordResetController::class,'requestToken']);
+Route::post('/password/reset',[PasswordResetController::class,'reset']);
 //Route::get('/logout',[LogoutController::class,'logout']);
 
-Route::post('/uploads', [ImageController::class, 'upload']);
+Route::post('/admin/uploads', [ImageController::class, 'upload']);
 Route::post('/logout', [LogoutController::class, 'logout'])->middleware('auth:api');
 //Middleware Only logged in user can perforn task
 Route::middleware(['auth:api', 'role:user'])->group(function(){

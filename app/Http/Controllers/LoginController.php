@@ -29,8 +29,8 @@ class LoginController extends Controller
             ]);
         }
         // Use __get magic Method or callable method 
-        public function __invoke(Request $request){
-            return $this->login($request);
-        }
+        // public function __invoke(Request $request){
+        //     return $this->login($request);
+        // }
 
 }
