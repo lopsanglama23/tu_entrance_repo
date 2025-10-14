@@ -43,16 +43,15 @@ class Student extends Model
         }
         return null;
     } 
+
+    // Using the __get magic methods for getting dynamic full_name and And full_name_dev
     protected $appends = ['student_photo_url','student_signature_url'];
-
-    // public function getFullNameAttribute()
-    // {
-    //     return trim("{$this->first_name} {$this->middle_name} {$this->last_name}");
-    // }
-
-    //  public function getFullNameDevAttribute()
-    // {
-    //     return trim("{$this->first_name_dev} {$this->middle_name_dev} {$this->last_name_dev}");
-    // }
-    
+    public function __get($key){
+        if($key === 'full_name'){
+            return trim("{$this->first_name} {$this->middle_name} {$this->last_name}");
+        }
+        if($key === 'full_name_dev'){
+            return trim("{$this->first_name_dev} {$this->middle_name_dev} {$this->last_name_dev}");
+        }
+    }
 }

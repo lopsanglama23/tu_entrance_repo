@@ -20,7 +20,7 @@ Route::get('/user', function (Request $request) {
 Route::post('/register', [RegisterController::class, 'register']);
 
 Route::post('/verify-otp', [RegisterController::class, 'verifyOtp']);
-Route::post('/login',[LoginController::class,'login']);
+Route::post('/login',LoginController::class);
 //Route::get('/logout',[LogoutController::class,'logout']);
 
 Route::post('/uploads', [ImageController::class, 'upload']);
