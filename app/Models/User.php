@@ -70,8 +70,17 @@ class User extends Authenticatable
     {
         return $this->hasOne(Contact::class);
     }
-    
-    public function students(): HasOne{
+        public function students(): HasOne{
         return $this->hasOne(Student::class);
+    }
+    //adding the magic methods in User Model
+    public function __set($key, $value){
+        if($key === 'email'){
+            $value = strtolower($value);
+        }
+        if($key === 'password'){
+            $value = bcrypt($value);
+        }
+    parent::__set($key, $value);
     }
 }

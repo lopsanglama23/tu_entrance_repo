@@ -17,17 +17,14 @@ class AdminRegistration extends Controller
             'password' => 'required|string|min:6',
             'role' => 'required|in:admin',
         ]);
-        // dd( $validated );
        $admin = Admin::create([
         'name' => $validated['name'],
         'email' => $validated['email'],
         'password' => Hash::make($validated['password']),
-        'role' => $validated['role'], // <--- FIX 1: Role is correctly assigned
+        'role' => $validated['role'], 
     ]);
 
-    $tokenResult = $admin->createToken('AdminToken');
-    $token = $tokenResult->accessToken; // <--- FIX 2: Extracts the token string
-
+    $token = $admin->createToken('AdminToken')->accessToken;
     return response()->json(['message' => 'admin registration successfully', 'data' => $admin, 'token' => $token], 200);
     }
  }
