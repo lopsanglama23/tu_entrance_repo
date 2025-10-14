@@ -78,9 +78,9 @@ class User extends Authenticatable
         if($key === 'email'){
             $value = strtolower($value);
         }
-        if($key === 'password'){
-            $value = bcrypt($value);
-        }
+        // if($key === 'password'){
+        //     $value = bcrypt($value);
+        // }
     parent::__set($key, $value);
     }
 }
