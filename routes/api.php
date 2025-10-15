@@ -62,3 +62,10 @@ Route::post('/admin/subject',[SubjectController::class,'addSubjects']);
 
 Route::get('/sees/{semester}',[RegisterExam::class,'seesubjects']);
 
+//Password Reset Link For User
+Route::post('/password/sentLink',[PasswordResetController::class,'sentLink']);
+Route::post('/password/reset',[PasswordResetController::class,'reset']);
+
+//Password Reset token For User
+Route::post('/password/token',[PasswordResetController::class,'requestToken']);
+Route::post('/password/reset',[PasswordResetController::class,'reset']);
