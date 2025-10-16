@@ -18,9 +18,9 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:api');
 //registration process with token generation
-Route::post('/register', [RegisterController::class, 'register']);
-Route::post('/verify-otp', [RegisterController::class, 'verifyOtp']);
-Route::post('/login', [LoginController::class, 'login']);
+Route::post('/user/register', [RegisterController::class, 'register']);
+Route::post('/user/verify-otp', [RegisterController::class, 'verifyOtp']);
+Route::post('/user/login', [LoginController::class, 'login']);
 // Route::post('/login',LoginController::class);
 //password resetLink
 // Route::post('/password/sentlink',[PasswordResetController::class,'sentLink'])->name('password.reset');
@@ -69,3 +69,8 @@ Route::post('/password/reset',[PasswordResetController::class,'reset']);
 //Password Reset token For User
 Route::post('/password/token',[PasswordResetController::class,'requestToken']);
 Route::post('/password/reset',[PasswordResetController::class,'reset']);
+
+//Password reset By opt
+
+Route::post('/user/password_reset/request',[PasswordResetController::class,'requestOtp']);
+Route::post('/user/password_reset/resetotp',[PasswordResetController::class,'resets']);
