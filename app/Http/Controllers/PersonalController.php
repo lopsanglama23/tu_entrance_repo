@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Http\Requests\EducationRequest;
+use App\Http\Requests\ManageRequest;
 use App\Http\Requests\PersonalRequest;
 use App\Models\Education;
 use App\Models\Student;
@@ -59,14 +60,18 @@ class PersonalController extends BaseController
         return $this->sendSuccessMessage('Edcuation Details of user is added Suuceesfully', $education);       
     }
 
-    public function manage(Request $request){
+    public function manage(ManageRequest $request){
         $val = $request->validated();
         if ($request->hasFile('image')) {
             $val['image'] = $this->storeFile('students/documents', $request->file('image'));
         }
+       
         $val['user_id'] = Auth::id();
         $manage = Manage::create($val);
-        return $this->sendSuccessMessage('The Documents are added succesfully');
+       
+        return $this->sendSuccessMessage('The Documents are added succesfully',
+        new ManageResource($manage),
+        );
     } 
     public function deleteManage(Request $request, $title){
         return $this->deletion($request, $title);

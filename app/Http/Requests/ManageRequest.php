@@ -22,7 +22,8 @@ class ManageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => 'required|string',
+            'image' => 'required|image|mimes:jpg,jpeg,png,gif|max:300'
         ];
     }
 }

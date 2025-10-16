@@ -16,7 +16,7 @@ class ManageResource extends JsonResource
     {
         return[
             'id' => $this->id,
-            'title' => $this->title,
+            'title' => $this->tittle,
             'image' => $this->image_url,
         ];
     }

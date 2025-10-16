@@ -35,14 +35,15 @@ Route::post('/password/sentlink',[PasswordResetController::class,'requestToken']
 Route::post('/password/reset',[PasswordResetController::class,'reset']);
 //Route::get('/logout',[LogoutController::class,'logout']);
 
-Route::post('/admin/uploads', [ImageController::class, 'upload']);
+Route::post('/user/images',[ImageController::class,'upload']);
+// Route::post('/user/edudocument',[PersonalController::class,'manage']);
 Route::post('/logout', [LogoutController::class, 'logout'])->middleware('auth:api');
 //Middleware Only logged in user can perforn task
 Route::middleware(['auth:api', 'role:user'])->group(function(){
     Route::post('/students',[PersonalController::class,'personalDetails']);
     Route::post('/contact',[PersonalController::class,'contactDetail']);
     Route::post('/educations',[PersonalController::class,'education']);
-    Route::post('/manage', [PersonalController::class, 'manage']);
+    Route::post('/user/edudocument', [PersonalController::class, 'manage']);
     Route::delete('/del/{title}',[PersonalController::class,'deleteManage']);
     Route::delete('/educations/del/{id}',[PersonalController::class,'edudelete']);
     Route::get('/edupreview/{id}',[PersonalController::class,'educationPreview']);

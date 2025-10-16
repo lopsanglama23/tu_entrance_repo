@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ImageResource;
 use App\Trait\ImageTrait;
 use Illuminate\Http\Request;
 use App\Models\Image;
@@ -30,12 +31,14 @@ class ImageController extends Controller
             }
 
             $image = Image::create($validated);
-
+            // return response()->json([
+            //     'message' => 'Image is uploaded successfully',
+            //     'data' => $image
+            // ], 200);
             return response()->json([
-                'message' => 'Image is uploaded successfully',
-                'data' => $image
-            ], 200);
-        }
-
-    
+                'message' => 'Images added Sucessfully',
+                'data' => new ImageResource($image),
+            ],200);
+        }    
 }
+

@@ -6,12 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Image extends Model
 {
+    protected $table = 'images';
+
     protected $fillable = [
         'photo',
         'sign',
         'citizen',
     ];
-
+    
     public function getPhotoUrlAttribute(){
         return $this->photo ? asset('storage/' . $this->photo) : null;
     }

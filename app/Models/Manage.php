@@ -13,7 +13,7 @@ class Manage extends Model
   protected $table = 'manages';
 
   protected $fillable = [
-    'title',
+    'tittle',
     'image',
     'user_id'
   ];

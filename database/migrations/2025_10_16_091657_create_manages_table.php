@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('manages', function (Blueprint $table) {
             $table->id();
-            $table->string("tittle");
-            $table->string("image");
+            $table->foreignId('user_id');
+            $table->string('title');
+            $table->string('image');
             $table->timestamps();
         });
     }
