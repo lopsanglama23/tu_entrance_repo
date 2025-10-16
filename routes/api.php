@@ -28,7 +28,7 @@ Route::post('/password/sentlink',[PasswordResetController::class,'requestToken']
 Route::post('/password/reset',[PasswordResetController::class,'reset']);
 //Route::get('/logout',[LogoutController::class,'logout']);
 
-Route::post('/admin/uploads', [ImageController::class, 'upload']);
+Route::post('/user/images',[ImageController::class,'upload']);
 Route::post('/logout', [LogoutController::class, 'logout'])->middleware('auth:api');
 //Middleware Only logged in user can perforn task
 Route::middleware(['auth:api', 'role:user'])->group(function(){
