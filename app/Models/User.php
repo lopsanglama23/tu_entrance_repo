@@ -73,6 +73,10 @@ class User extends Authenticatable
         public function students(): HasOne{
         return $this->hasOne(Student::class);
     }
+ 
+    // public function passwordResetOpt(){
+    //     return $this->hasMany(PasswordResetOtp::class);
+    // }
     //adding the magic methods in User Model
     public function __set($key, $value){
         if($key === 'email'){
