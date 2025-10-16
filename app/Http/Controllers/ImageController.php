@@ -6,7 +6,6 @@ use App\Http\Resources\ImageResource;
 use App\Trait\ImageTrait;
 use Illuminate\Http\Request;
 use App\Models\Image;
-
 class ImageController extends Controller
 {
     Use ImageTrait;
