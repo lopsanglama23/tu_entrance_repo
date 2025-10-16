@@ -21,8 +21,15 @@ Route::get('/user', function (Request $request) {
 Route::post('/user/register', [RegisterController::class, 'register']);
 Route::post('/user/verify-otp', [RegisterController::class, 'verifyOtp']);
 Route::post('/user/login', [LoginController::class, 'login']);
+
+//Password reset By opt
+
+Route::post('/user/password_reset/request',[PasswordResetController::class,'requestOtp']);
+Route::post('/user/password_reset/resetotp',[PasswordResetController::class,'resets']);
 // Route::post('/login',LoginController::class);
+
 //password resetLink
+
 // Route::post('/password/sentlink',[PasswordResetController::class,'sentLink'])->name('password.reset');
 Route::post('/password/sentlink',[PasswordResetController::class,'requestToken']);
 Route::post('/password/reset',[PasswordResetController::class,'reset']);
@@ -70,7 +77,6 @@ Route::post('/password/reset',[PasswordResetController::class,'reset']);
 Route::post('/password/token',[PasswordResetController::class,'requestToken']);
 Route::post('/password/reset',[PasswordResetController::class,'reset']);
 
-//Password reset By opt
+//Image Upload with accossor class
 
-Route::post('/user/password_reset/request',[PasswordResetController::class,'requestOtp']);
-Route::post('/user/password_reset/resetotp',[PasswordResetController::class,'resets']);
+Route::post('/user/images/',[ImageController::class,'upload']);
