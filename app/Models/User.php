@@ -56,21 +56,25 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-
+    //One to Many 
     public function educations(): HasMany
     {
         return $this->hasMany(Education::class);
     }
 
+    // One to Many
     public function manages(): HasMany{
         return $this->hasMany(Manage::class);
     }
 
-    public function contacts(): HasOne
+// One to One relationship
+    public function contact(): HasOne
     {
         return $this->hasOne(Contact::class);
     }
-        public function students(): HasOne{
+
+
+    public function students(): HasOne{
         return $this->hasOne(Student::class);
     }
  
@@ -78,13 +82,33 @@ class User extends Authenticatable
     //     return $this->hasMany(PasswordResetOtp::class);
     // }
     //adding the magic methods in User Model
-    public function __set($key, $value){
-        if($key === 'email'){
-            $value = strtolower($value);
-        }
-        // if($key === 'password'){
-        //     $value = bcrypt($value);
-        // }
-    parent::__set($key, $value);
+    // public function __set($key, $value){
+    //     if($key === 'email'){
+    //         $value = strtolower($value);
+    //     }
+    //     // if($key === 'password'){
+    //     //     $value = bcrypt($value);
+    //     // }
+    // parent::__set($key, $value);
+    // }
+
+
+     //mutaotars to set first name into Uppercase
+    public function setFirstNameAttribute($value)
+    {
+        $this->attributes['first_name'] = strtoupper($value);
     }
-}
+
+    // Accessor for getting fullname
+
+    // public function getFullNameAttribute(){
+    //     return trim("{$this->first_name} {$this->middle_name} {$this->last_name}");
+    // }
+
+    protected $appends = ['full_name'];
+
+    public function getFullNameAttribute(){
+        return $this->first_name .' '. $this->middle_name . ' ' .$this->last_name;
+    }
+}    
+

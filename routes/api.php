@@ -3,11 +3,14 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminRegistration;
 use App\Http\Controllers\Admin\SubjectController;
+use App\Http\Controllers\EntranceController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\PersonalController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterExam;
+use App\Http\Controllers\UploadController;
 use GuzzleHttp\Middleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +24,8 @@ Route::get('/user', function (Request $request) {
 Route::post('/user/register', [RegisterController::class, 'register']);
 Route::post('/user/verify-otp', [RegisterController::class, 'verifyOtp']);
 Route::post('/user/login', [LoginController::class, 'login']);
+
+Route::get('/user/profile',[ProfileController::class,'profile']);
 
 //Password reset By opt
 
@@ -36,12 +41,17 @@ Route::post('/password/reset',[PasswordResetController::class,'reset']);
 //Route::get('/logout',[LogoutController::class,'logout']);
 
 Route::post('/user/images',[ImageController::class,'upload']);
+Route::post('/user/image',[UploadController::class,'upload']);
+
+
+
+
 // Route::post('/user/edudocument',[PersonalController::class,'manage']);
 Route::post('/logout', [LogoutController::class, 'logout'])->middleware('auth:api');
 //Middleware Only logged in user can perforn task
 Route::middleware(['auth:api', 'role:user'])->group(function(){
-    Route::post('/students',[PersonalController::class,'personalDetails']);
-    Route::post('/contact',[PersonalController::class,'contactDetail']);
+    Route::post('/user/student',[PersonalController::class,'personalDetails']);
+    Route::post('/user/contact',[PersonalController::class,'contactDetail']);
     Route::post('/educations',[PersonalController::class,'education']);
     Route::post('/user/edudocument', [PersonalController::class, 'manage']);
     Route::delete('/del/{title}',[PersonalController::class,'deleteManage']);
@@ -81,3 +91,7 @@ Route::post('/password/reset',[PasswordResetController::class,'reset']);
 //Image Upload with accossor class
 
 Route::post('/user/images/',[ImageController::class,'upload']);
+
+//Entrance 
+Route::get('/user/programs', [EntranceController::class, 'getPrograms']);
+Route::post('/user/register-entrance',[EntranceController::class,'registerEntrance']);

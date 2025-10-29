@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\ImageResource;
 use App\Trait\ImageTrait;
 use Illuminate\Http\Request;
+use App\Http\Requests\ImageRequest;
 use App\Models\Image;
 class ImageController extends Controller
 {
@@ -16,6 +17,8 @@ class ImageController extends Controller
                 'sign' => 'required|file|mimes:jpg,jpeg,png|max:300',
                 'citizen' => 'required|file|mimes:jpg,jpeg,png|max:300',
             ]);
+            
+    
 
             if($request->hasFile('photo')){
                 $validated['photo'] = $this->store('students/photos', $request->file('photo'));
@@ -40,4 +43,6 @@ class ImageController extends Controller
             ],200);
         }    
 }
+
+
 

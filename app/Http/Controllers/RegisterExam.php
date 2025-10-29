@@ -30,5 +30,9 @@ class RegisterExam extends Controller
             'subjects' => $see, 
         ],200);
     }
+
+    public function profile(Request $request){
+        
+    }
    
 }

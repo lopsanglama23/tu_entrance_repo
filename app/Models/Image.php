@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 
 class Image extends Model
@@ -24,6 +24,13 @@ class Image extends Model
 
     public function getCitizenUrlAttribute(){
         return $this->citizen ? asset('storage/' . $this->citizen) : null;
+    }
+
+    public function signUrl():Attribute{
+        return Attribute::make(
+            get: fn($value, $attributes) => new $attributes['sign'] ? asset('storage/'. $attributes['sign']) : null 
+        );
+
     }
      protected $appends = ['photo_url','sign_url','citizen_url'];
 }

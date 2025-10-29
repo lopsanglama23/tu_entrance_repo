@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Requests\ContactRequest;
 use App\Http\Requests\EducationRequest;
 use App\Http\Requests\ManageRequest;
 use App\Http\Requests\PersonalRequest;
@@ -16,6 +17,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\StudentResource;
 use App\Http\Resources\ManageResource;
+use App\Http\Resources\ContactResource;
 
 class PersonalController extends BaseController
 {
@@ -44,7 +46,7 @@ class PersonalController extends BaseController
         return $this->sendSuccessMessage('The Student Data is Added Succesfully',$students);
     }
 
-    public function contactDetail(Request $request){
+    public function contactDetail(ContactRequest $request){
         $valid = $request->validated();
         if ($request->hasFile('citizenship_copy')) {
             $valid['citizenship_copy'] = $this->storeFile('students/citizenship', $request->file('citizenship_copy'));
@@ -132,6 +134,10 @@ class PersonalController extends BaseController
     public function manageurl(Request $request){
         $manages = Manage::all();
         return ManageResource::collection($manages);
+    }
+
+    public function contacturl(Request $request){
+      
     }
 //All details Peview Page of Student
     public function preview(Request $request, $user_id){

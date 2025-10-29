@@ -2,9 +2,12 @@
 
 namespace App\Models;
 
+use App\Models\Admin\Subject;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Student extends Model
 {
@@ -45,13 +48,24 @@ class Student extends Model
     } 
 
     // Using the __get magic methods for getting dynamic full_name and And full_name_dev
-    protected $appends = ['student_photo_url','student_signature_url'];
-    public function __get($key){
-        if($key === 'full_name'){
-            return trim("{$this->first_name} {$this->middle_name} {$this->last_name}");
-        }
-        if($key === 'full_name_dev'){
-            return trim("{$this->first_name_dev} {$this->middle_name_dev} {$this->last_name_dev}");
-        }
+    // protected $appends = ['student_photo_url','student_signature_url'];
+    // public function __get($key){
+    //     if($key === 'full_name'){
+    //         return trim("{$this->first_name} {$this->middle_name} {$this->last_name}");
+    //     }
+    //     if($key === 'full_name_dev'){
+    //         return trim("{$this->first_name_dev} {$this->middle_name_dev} {$this->last_name_dev}");
+    //     }
+    // }
+    
+    // One to One relationship
+    public function contact(): HasOne
+    {
+        return $this->hasOne(Contact::class);
+    }
+
+    public function subjects(): BelongsToMany
+    {
+        return $this->belongsToMany(Subject::class);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Storage;
 
 class Contact extends Model
 {
@@ -24,4 +25,14 @@ class Contact extends Model
     public function users(): BelongsTo{
         return $this->belongsTo(User::class);
     }
+
+    // //accessor class for getting the 
+    // public function getCitizenshipCopyUrlAttribute(){
+    //     if($this->citizenship_copy){
+    //         return asset('/storage'.$this->citizenship_copy);
+    //     }
+    //     return null;
+    // }
+
+    // protected $appends = ['citizen_copy_url'];
 }
