@@ -24,6 +24,8 @@ class PersonalController extends BaseController
     use UploadTrait;
     use ResponseTrait;
     use DeleteTrait;
+
+    // The function that store validated data in database
     public function personalDetails(PersonalRequest $request){
         $validated = $request->validated();
         $validated['date_of_birth_ad'] = date('Y-m-d', strtotime($validated['date_of_birth_ad']));
@@ -45,7 +47,7 @@ class PersonalController extends BaseController
         $students = Student::create($validated);
         return $this->sendSuccessMessage('The Student Data is Added Succesfully',$students);
     }
-
+    //The function that stores the validated contact data in database
     public function contactDetail(ContactRequest $request){
         $valid = $request->validated();
         if ($request->hasFile('citizenship_copy')) {
@@ -55,13 +57,15 @@ class PersonalController extends BaseController
         $contact = Contact::create($valid);
         return $this->sendSuccessMessage('The Contact Details are added Succcesfully', $contact);
     }
+
+    //The function that stores the valid education details in Education table
     public function education(EducationRequest $request){
         $valids = $request->validated();
         $valids['user_id'] = Auth::id();
         $education = Education::create($valids);
         return $this->sendSuccessMessage('Edcuation Details of user is added Suuceesfully', $education);       
     }
-
+    //this stores the valid document in database 
     public function manage(ManageRequest $request){
         $val = $request->validated();
         if ($request->hasFile('image')) {
@@ -78,6 +82,7 @@ class PersonalController extends BaseController
     public function deleteManage(Request $request, $title){
         return $this->deletion($request, $title);
     }
+    // This Preview the Whole Educational details
     public function educationPreview(Request $request, $id){
 
         $preview  = Education::select(
